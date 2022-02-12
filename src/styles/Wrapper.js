@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // APP WRAPPER
-export const Wrapper = styled.div`
+export const Wrapper = styled.main`
   width: 768px;
   padding: 40px 40px;
   margin: 0 auto;
