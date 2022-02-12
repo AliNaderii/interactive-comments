@@ -55,11 +55,11 @@ export default function Card({ comment, addId, deleteId }) {
         <LikesWrapper>
           {/* LIKE & DISLIKE SECTION */ }
           <div className="like-btn">
-            <button onClick={ incrementScore }>
+            <button onClick={ incrementScore } aria-label='upvote'>
               <img src="./images/icon-plus.svg" alt="" />
             </button>
             <p>{ score }</p>
-            <button onClick={ decrementScore }>
+            <button onClick={ decrementScore } aria-label='downvote'>
               <img src="./images/icon-minus.svg" alt="" />
             </button>
           </div>
