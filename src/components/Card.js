@@ -75,7 +75,7 @@ export default function Card({ comment, addId, deleteId }) {
           )
             :
             <div className="query-btn">
-              <ActionButton type='delete' onClick={ () => setShowModal(true) } className='query-btn'>
+              <ActionButton colorType='delete' onClick={ () => setShowModal(true) } className='query-btn'>
                 <button>
                   <img src="./images/icon-delete.svg" alt="" />
                   Delete
@@ -116,7 +116,7 @@ export default function Card({ comment, addId, deleteId }) {
             )
               :
               <div>
-                <ActionButton type='delete' onClick={ () => setShowModal(true) }>
+                <ActionButton colorType='delete' onClick={ () => setShowModal(true) }>
                   <button>
                     <img src="./images/icon-delete.svg" alt="" />
                     Delete
