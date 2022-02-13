@@ -143,23 +143,19 @@ export const CommentDetails = styled.div`
 // ACTION BUTTONS
 export const ActionButton = styled.div`
 
-  button {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 16px;
-  }
-  
-  p {
-    margin-left: 5px;
-    color: ${({ type }) => type === 'delete' ? 'hsl(358, 79%, 66%)' : 'hsl(238, 40%, 52%)'};
-  }
+button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  color: ${({ type }) => type === 'delete' ? 'hsl(358, 79%, 66%)' : 'hsl(238, 40%, 52%)'};
+}
   
   img {
-    width: 15px;
+      width: 15px;
       height: 15px;
-      margin-left: 15px;
+      margin: 0 10px 0 15px;
     }
 
     /* MEDIA QUERIES */

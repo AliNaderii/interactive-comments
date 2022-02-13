@@ -69,7 +69,7 @@ export default function Card({ comment, addId, deleteId }) {
             <ActionButton onClick={ replyFormSwitch } className='query-btn'>
               <button>
                 <img src="./images/icon-reply.svg" alt="" />
-                <p>Reply</p>
+                Reply
               </button>
             </ActionButton>
           )
@@ -78,14 +78,14 @@ export default function Card({ comment, addId, deleteId }) {
               <ActionButton type='delete' onClick={ () => setShowModal(true) } className='query-btn'>
                 <button>
                   <img src="./images/icon-delete.svg" alt="" />
-                  <p>Delete</p>
+                  Delete
                 </button>
               </ActionButton>
 
               <ActionButton onClick={ editFormSwitch } className='query-btn'>
                 <button>
                   <img src="./images/icon-edit.svg" alt="" />
-                  <p>Edit</p>
+                  Edit
                 </button>
               </ActionButton>
             </div>
@@ -110,7 +110,7 @@ export default function Card({ comment, addId, deleteId }) {
               <ActionButton onClick={ replyFormSwitch }>
                 <button>
                   <img src="./images/icon-reply.svg" alt="" />
-                  <p>Reply</p>
+                  Reply
                 </button>
               </ActionButton>
             )
@@ -119,14 +119,14 @@ export default function Card({ comment, addId, deleteId }) {
                 <ActionButton type='delete' onClick={ () => setShowModal(true) }>
                   <button>
                     <img src="./images/icon-delete.svg" alt="" />
-                    <p>Delete</p>
+                    Delete
                   </button>
                 </ActionButton>
 
                 <ActionButton onClick={ editFormSwitch }>
                   <button>
                     <img src="./images/icon-edit.svg" alt="" />
-                    <p>Edit</p>
+                    Edit
                   </button>
                 </ActionButton>
               </div>
