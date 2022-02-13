@@ -89,7 +89,7 @@ export const Button = styled.button`
   margin-right: 10px;
   border-radius: 5px;
   color: #fff;
-  background-color: ${({ color }) => color};
+  background-color: ${({ setColor }) => setColor};
   cursor: pointer;
   opacity: ${props => props.clicked ? '0.5' : 'unset'};
 

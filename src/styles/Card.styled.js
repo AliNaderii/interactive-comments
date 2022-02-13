@@ -149,7 +149,7 @@ button {
   cursor: pointer;
   font-weight: 700;
   font-size: 16px;
-  color: ${({ type }) => type === 'delete' ? 'hsl(358, 79%, 66%)' : 'hsl(238, 40%, 52%)'};
+  color: ${({ colorType }) => colorType === 'delete' ? 'hsl(358, 79%, 66%)' : 'hsl(238, 40%, 52%)'};
 }
   
   img {
