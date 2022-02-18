@@ -19,13 +19,13 @@ export default function Modal({ hideModal, id }) {
         </p>
 
         {/* CANCELL BUTTON */ }
-        <Button color="hsl(211, 10%, 45%)" onClick={ hideModal }>
-          NO, CANCEL
+        <Button setColor="hsl(211, 10%, 45%)" onClick={ hideModal }>
+          <span>NO, CANCEL</span>
         </Button>
 
         {/* ACCEPT BUTTON */ }
-        <Button color="hsl(358, 79%, 66%)" onClick={ () => deleteComment(id) }>
-          YES, DELETE
+        <Button setColor="hsl(358, 79%, 66%)" onClick={ () => deleteComment(id) }>
+          <span>YES, DELETE</span>
         </Button>
 
       </ModalCard>

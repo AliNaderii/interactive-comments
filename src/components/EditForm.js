@@ -40,7 +40,7 @@ export default function EditForm({ value, user, id, to, text, editFormSwitch }
         </CommentInput>
 
         {/* SUBMIT BUTTON */ }
-        <Button color="hsl(238, 40%, 52%)">
+        <Button setCcolor="hsl(238, 40%, 52%)">
           { text }
         </Button>
 

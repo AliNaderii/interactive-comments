@@ -59,7 +59,7 @@ export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
 
         {/* SUBMIT BUTTON */ }
         <Button
-          color="hsl(238, 40%, 52%)"
+          setColor="hsl(238, 40%, 52%)"
           clicked={ clicked }
           onMouseDown={ clickEffect }
           onMouseUp={ clickEffect }

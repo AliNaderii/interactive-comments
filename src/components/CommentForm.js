@@ -56,7 +56,7 @@ export default function CommentForm({ user, text, to }) {
 
         {/* SUBMIT BUTTON */ }
         <Button setColor="hsl(238, 40%, 52%)">
-          { text }
+          <span>{ text }</span>
         </Button>
 
       </form>
