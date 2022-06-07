@@ -17,7 +17,7 @@ An interactive comments section
 
 1. Clone from Github
 
- - git clone https://github.com/AliNaderii/admin-dashboard.git
+ - git clone [https://github.com/AliNaderii/admin-dashboard.git](https://github.com/AliNaderii/interactive-comments.git)
 
 2. Run `npm install` or `yarn install`
 
