@@ -38,12 +38,12 @@ export default function Card({ comment, addId, deleteId }) {
 
   // LIKE A COMMENT
   const incrementScore = () => {
-    setScore(prevState => prevState += 1);
+    if (score <= comment.score) setScore(prevScore => prevScore += 1);
   };
 
   // DISLIKE A COMMENT
   const decrementScore = () => {
-    setScore(prevState => prevState -= 1);
+    if (score >= comment.score) setScore(prevScore => prevScore -= 1);
   };
 
   // THE CURRENT USER
@@ -53,20 +53,20 @@ export default function Card({ comment, addId, deleteId }) {
     <div>
       <StyledCard>
         <LikesWrapper>
-          {/* LIKE & DISLIKE SECTION */ }
+          {/* LIKE & DISLIKE SECTION */}
           <div className="like-btn">
-            <button onClick={ incrementScore } aria-label='upvote'>
+            <button onClick={incrementScore} aria-label='upvote'>
               <img src="./images/icon-plus.svg" alt="" />
             </button>
-            <p>{ score }</p>
-            <button onClick={ decrementScore } aria-label='downvote'>
+            <p>{score}</p>
+            <button onClick={decrementScore} aria-label='downvote'>
               <img src="./images/icon-minus.svg" alt="" />
             </button>
           </div>
 
-          {/* ACTION BUTTONS THAT WILL ONLY SHOW WHEN MEDIA QUERY APPLIES */ }
-          { comment.user.username !== current ? (
-            <ActionButton onClick={ replyFormSwitch } className='query-btn'>
+          {/* ACTION BUTTONS THAT WILL ONLY SHOW WHEN MEDIA QUERY APPLIES */}
+          {comment.user.username !== current ? (
+            <ActionButton onClick={replyFormSwitch} className='query-btn'>
               <button>
                 <img src="./images/icon-reply.svg" alt="" />
                 Reply
@@ -75,14 +75,14 @@ export default function Card({ comment, addId, deleteId }) {
           )
             :
             <div className="query-btn">
-              <ActionButton colorType='delete' onClick={ () => setShowModal(true) } className='query-btn'>
+              <ActionButton colorType='delete' onClick={() => setShowModal(true)} className='query-btn'>
                 <button>
                   <img src="./images/icon-delete.svg" alt="" />
                   Delete
                 </button>
               </ActionButton>
 
-              <ActionButton onClick={ editFormSwitch } className='query-btn'>
+              <ActionButton onClick={editFormSwitch} className='query-btn'>
                 <button>
                   <img src="./images/icon-edit.svg" alt="" />
                   Edit
@@ -94,20 +94,20 @@ export default function Card({ comment, addId, deleteId }) {
 
         <CommentSection>
 
-          {/* COMMENT AUTHOR & TIME */ }
+          {/* COMMENT AUTHOR & TIME */}
           <CommentDetails>
             <div>
-              <img src={ comment.user.image.png } alt="" />
-              <p>{ comment.user.username }</p>
-              { comment.user.username === current && (
+              <img src={comment.user.image.png} alt="" />
+              <p>{comment.user.username}</p>
+              {comment.user.username === current && (
                 <p>you</p>
-              ) }
-              <span>{ comment.createdAt }</span>
+              )}
+              <span>{comment.createdAt}</span>
             </div>
 
-            {/* ACTION BUTTONS FOR DEFAULT MEDIA QUERY */ }
-            { comment.user.username !== current ? (
-              <ActionButton onClick={ replyFormSwitch }>
+            {/* ACTION BUTTONS FOR DEFAULT MEDIA QUERY */}
+            {comment.user.username !== current ? (
+              <ActionButton onClick={replyFormSwitch}>
                 <button>
                   <img src="./images/icon-reply.svg" alt="" />
                   Reply
@@ -116,14 +116,14 @@ export default function Card({ comment, addId, deleteId }) {
             )
               :
               <div>
-                <ActionButton colorType='delete' onClick={ () => setShowModal(true) }>
+                <ActionButton colorType='delete' onClick={() => setShowModal(true)}>
                   <button>
                     <img src="./images/icon-delete.svg" alt="" />
                     Delete
                   </button>
                 </ActionButton>
 
-                <ActionButton onClick={ editFormSwitch }>
+                <ActionButton onClick={editFormSwitch}>
                   <button>
                     <img src="./images/icon-edit.svg" alt="" />
                     Edit
@@ -133,41 +133,41 @@ export default function Card({ comment, addId, deleteId }) {
             }
           </CommentDetails>
 
-          { /* THE COMMENT ITSELF */ }
+          { /* THE COMMENT ITSELF */}
           <CommentText>
             <p>
-              { comment.replyingTo && (
-                <span>{ `@${comment.replyingTo}` }</span>
-              ) }
-              { comment.content }
+              {comment.replyingTo && (
+                <span>{`@${comment.replyingTo}`}</span>
+              )}
+              {comment.content}
             </p>
           </CommentText>
         </CommentSection>
-        { showModal && <Modal hideModal={ hideModal } id={ deleteId } /> }
+        {showModal && <Modal hideModal={hideModal} id={deleteId} />}
       </StyledCard>
 
-      {/* CONDITIONAL RENDERING OF REPLY FORM */ }
+      {/* CONDITIONAL RENDERING OF REPLY FORM */}
       {
         showReplyForm &&
         <ReplyForm
-          user={ state.currentUser }
-          text={ `REPLY` }
-          to={ comment.user.username }
-          id={ addId }
-          replyFormSwitch={ replyFormSwitch }
+          user={state.currentUser}
+          text={`REPLY`}
+          to={comment.user.username}
+          id={addId}
+          replyFormSwitch={replyFormSwitch}
         />
       }
 
-      {/* CONDITIONA RENDERING OF EDIT FORM */ }
+      {/* CONDITIONA RENDERING OF EDIT FORM */}
       {
         showEditForm &&
         <EditForm
-          user={ state.currentUser }
-          value={ comment.content }
-          text={ `Update` }
-          to={ comment.user.username }
-          id={ deleteId }
-          editFormSwitch={ editFormSwitch }
+          user={state.currentUser}
+          value={comment.content}
+          text={`Update`}
+          to={comment.user.username}
+          id={deleteId}
+          editFormSwitch={editFormSwitch}
         />
       }
     </div>

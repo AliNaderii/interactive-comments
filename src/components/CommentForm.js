@@ -1,6 +1,7 @@
 // TOOLS
 import { useState } from "react";
 import { useDataContext } from "../hooks/useDataContext";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 // STYLES
 import { StyledCommentForm, Avatar, CommentInput, Button } from "../styles/CommentForm.styled";
 
@@ -18,7 +19,7 @@ export default function CommentForm({ user, text, to }) {
     const comment = {
       "id": (Math.random()) * 1000,
       "content": replyText,
-      "createdAt": "1 month ago",
+      "createdAt": formatDistanceToNow(new Date()),
       "score": 0,
       "user": {
         "image": {
@@ -38,25 +39,25 @@ export default function CommentForm({ user, text, to }) {
   return (
     <StyledCommentForm>
 
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={handleSubmit}>
 
-        {/* USER AVATAR */ }
+        {/* USER AVATAR */}
         <Avatar>
-          <img src={ user.image.png } alt="" />
+          <img src={user.image.png} alt="" />
         </Avatar>
 
-        {/* TEXTAREA */ }
+        {/* TEXTAREA */}
         <CommentInput>
           <textarea
             placeholder="Add a comment..."
-            value={ replyText }
-            onChange={ (e) => setReplyText(e.target.value) }
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
           />
         </CommentInput>
 
-        {/* SUBMIT BUTTON */ }
+        {/* SUBMIT BUTTON */}
         <Button setColor="hsl(238, 40%, 52%)">
-          <span>{ text }</span>
+          <span>{text}</span>
         </Button>
 
       </form>

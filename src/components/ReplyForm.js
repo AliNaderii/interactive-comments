@@ -1,6 +1,7 @@
 // TOOLS
 import { useState } from "react";
 import { useDataContext } from "../hooks/useDataContext";
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 // STYLES
 import { StyledCommentForm, Avatar, CommentInput, Button } from "../styles/CommentForm.styled";
@@ -22,7 +23,7 @@ export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
     const reply = {
       "id": Math.random() * 1000,
       "content": replyText.replace(`@${to},`, ''),
-      "createdAt": "2 days ago",
+      "createdAt": formatDistanceToNow(new Date()),
       "score": 0,
       "replyingTo": to,
       "user": {
@@ -42,29 +43,29 @@ export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
 
   return (
     <StyledCommentForm>
-      <form onSubmit={ handleSubmit }>
-        {/* USER AVATAR */ }
+      <form onSubmit={handleSubmit}>
+        {/* USER AVATAR */}
         <Avatar>
-          <img src={ user.image.png } alt="" />
+          <img src={user.image.png} alt="" />
         </Avatar>
 
-        {/* TEXTAREA */ }
+        {/* TEXTAREA */}
         <CommentInput>
           <textarea
             placeholder="Add a comment..."
-            value={ replyText }
-            onChange={ (e) => setReplyText(e.target.value) }
-          >{ to }</textarea>
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+          >{to}</textarea>
         </CommentInput>
 
-        {/* SUBMIT BUTTON */ }
+        {/* SUBMIT BUTTON */}
         <Button
           setColor="hsl(238, 40%, 52%)"
-          clicked={ clicked }
-          onMouseDown={ clickEffect }
-          onMouseUp={ clickEffect }
+          clicked={clicked}
+          onMouseDown={clickEffect}
+          onMouseUp={clickEffect}
         >
-          { text }
+          {text}
         </Button>
 
       </form>
