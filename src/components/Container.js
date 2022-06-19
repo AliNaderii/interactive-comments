@@ -13,22 +13,22 @@ export default function Container() {
 
   return (
     <Wrapper>
-      {/* RENDERING COMMENTS  */ }
-      { state.comments.map(comment => (
-        <div key={ comment.id }>
-          <Card comment={ comment } addId={ comment.id } deleteId={ comment.id } />
+      {/* RENDERING COMMENTS  */}
+      {state.comments.map(comment => (
+        <div key={comment.id}>
+          <Card comment={comment} deleteId={comment.id} mainCommentId={comment.id} tag='main' />
 
-          {/* CONDITIONAL RENDERING OF REPLIES */ }
+          {/* CONDITIONAL RENDERING OF REPLIES */}
           {
             comment.replies.length !== 0 &&
             comment.replies.map(
-              reply => <ReplyCard reply={ reply } key={ reply.id } addId={ comment.id } />
+              reply => <ReplyCard reply={reply} key={reply.id} mainCommentId={comment.id} deleteId={reply.id} />
             )
           }
         </div>
-      )) }
+      ))}
 
-      <CommentForm user={ state.currentUser } text={ 'SEND' } />
+      <CommentForm user={state.currentUser} text={'SEND'} />
     </Wrapper>
   );
 }

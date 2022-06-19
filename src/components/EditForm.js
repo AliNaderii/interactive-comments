@@ -1,47 +1,48 @@
 // TOOLS
 import { useState } from "react";
 import { useDataContext } from "../hooks/useDataContext";
+import { updateReply } from "../context/actions";
 // STYLES
 import { StyledCommentForm, Avatar, CommentInput, Button } from '../styles/CommentForm.styled';
 
-export default function EditForm({ value, user, id, to, text, editFormSwitch }
+export default function EditForm({ content, user, mainCommentId, editId, to, text, editFormSwitch, tag }
 ) {
-  const [replyText, setReplyText] = useState(`@${to}, ${value}`);
-  const { updateReply } = useDataContext();
+  const [comment, setComment] = useState(`@${to}, ${content}`);
+  const { dispatch } = useDataContext();
 
   // SUBMIT FORM FUNCTION
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // EDITED REPLY
-    const reply = replyText.replace(`@${to},`, '');
+    const editedComment = comment.replace(`@${to},`, '');
 
-    updateReply(reply, id);
-    setReplyText('');
+    dispatch(updateReply(editedComment, mainCommentId, editId, tag));
+    setComment('');
     editFormSwitch();
   };
 
   return (
     <StyledCommentForm >
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={handleSubmit}>
 
-        {/* USER AVATAR */ }
+        {/* USER AVATAR */}
         <Avatar>
-          <img src={ user.image.png } alt="" />
+          <img src={user.image.png} alt="" />
         </Avatar>
 
-        {/* TEXTAREA */ }
+        {/* TEXTAREA */}
         <CommentInput>
           <textarea
             placeholder="Add a comment..."
-            value={ replyText }
-            onChange={ (e) => setReplyText(e.target.value) }
-          >{ to }</textarea>
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          >{to}</textarea>
         </CommentInput>
 
-        {/* SUBMIT BUTTON */ }
-        <Button setCcolor="hsl(238, 40%, 52%)">
-          { text }
+        {/* SUBMIT BUTTON */}
+        <Button setColor="hsl(238, 40%, 52%)">
+          {text}
         </Button>
 
       </form>

@@ -10,55 +10,63 @@ export const DataContext = createContext();
 const dataReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_COMMENT':
-      state.comments.push(action.payload);
-      return { ...state };
+      return {
+        ...state,
+        comments: [...state.comments, action.payload.comment]
+      };
 
     case 'ADD_REPLY':
-      state.comments.map(comment => {
-        if (comment.id === action.payload.id) {
-          comment.replies.push(action.payload.reply);
-        }
-        return comment;
-      });
-      return { ...state };
+      const newComments = state.comments.map(
+        comment => comment.id === action.payload.mainCommentId
+          ?
+          { ...comment, replies: [...comment.replies, action.payload.reply] }
+          :
+          comment
+      );
+      return { ...state, comments: newComments };
 
     case 'DELETE_COMMENT':
-      const filtered = state.comments.filter(
-        comment => comment.id !== action.payload
-      );
-      state.comments = filtered;
-
-      state.comments.map(comment => {
-        if (comment.replies.length !== 0) {
-          const filteredReplies = comment.replies.filter(
-            reply => reply.id !== action.payload
-          );
-          comment.replies = filteredReplies;
-        }
-        return comment;
-      });
-      return { ...state };
+      let filteredComments;
+      if (action.payload.tag === 'main') {
+        filteredComments = state.comments.filter(
+          comment => comment.id !== action.payload.deleteId
+        );
+        return { ...state, comments: filteredComments };
+      }
+      else if (action.payload.tag === 'reply') {
+        const { deleteId, mainCommentId } = action.payload;
+        const index = state.comments.findIndex(
+          comment => comment.id === mainCommentId
+        );
+        const newComments = [...state.comments];
+        const newReplies = newComments[index].replies.filter(
+          reply => reply.id !== deleteId
+        );
+        newComments[index].replies = newReplies;
+        return { ...state, comments: newComments };
+      }
+      break;
 
     case 'UPDATE_REPLY':
-      state.comments.map(comment => {
-        if (comment.id === action.payload.id) {
-          comment.content = action.payload.reply;
-        }
-        return comment;
-      });
-
-      state.comments.map(comment => {
-        if (comment.replies.length !== 0) {
-          comment.replies.map(reply => {
-            if (reply.id === action.payload.id) {
-              reply.content = action.payload.reply;
-            }
-            return reply;
-          });
-        }
-        return comment;
-      });
-      return { ...state };
+      if (action.payload.tag === 'main') {
+        const newComments = [...state.comments];
+        const index = newComments.findIndex(comment => comment.id === action.payload.editId);
+        newComments[index].content = action.payload.editedComment;
+        return { ...state, comments: newComments };
+      }
+      else if (action.payload.tag === 'reply') {
+        const newComments = [...state.comments];
+        const mainCommentIndex = newComments.findIndex(comment => comment.id === action.payload.mainCommentId);
+        const mainComment = newComments[mainCommentIndex];
+        const newReplies = [...mainComment.replies];
+        const replyIndex = newReplies.findIndex(
+          reply => reply.id === action.payload.editId
+        );
+        newReplies[replyIndex].content = action.payload.editedComment;
+        mainComment.replies = newReplies;
+        return { ...state, comments: newComments };
+      }
+      break;
 
     default:
       return state;
@@ -71,26 +79,10 @@ export const DataContextProvider = ({ children }) => {
 
   console.log(state);
 
-  const addComment = (comment) => {
-    dispatch({ type: 'ADD_COMMENT', payload: comment });
-  };
-
-  const addReply = (reply, id) => {
-    dispatch({ type: 'ADD_REPLY', payload: { reply, id } });
-  };
-
-  const deleteComment = (id) => {
-    dispatch({ type: 'DELETE_COMMENT', payload: id });
-  };
-
-  const updateReply = (reply, id) => {
-    dispatch({ type: 'UPDATE_REPLY', payload: { reply, id } });
-  };
-
   return (
     <DataContext.Provider
-      value={ { ...state, addComment, addReply, deleteComment, updateReply } }>
-      { children }
+      value={{ ...state, dispatch }}>
+      {children}
     </DataContext.Provider>
   );
 };

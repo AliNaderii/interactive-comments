@@ -2,16 +2,16 @@
 import { useState } from "react";
 import { useDataContext } from "../hooks/useDataContext";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-
+import { addReply } from "../context/actions";
 // STYLES
 import { StyledCommentForm, Avatar, CommentInput, Button } from "../styles/CommentForm.styled";
 
 
-export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
+export default function ReplyForm({ user, text, to, replyFormSwitch, mainCommentId }) {
   const [clicked, setClicked] = useState(false);
   const [replyText, setReplyText] = useState(`@${to}, `);
 
-  const { addReply } = useDataContext();
+  const { dispatch } = useDataContext();
 
   const clickEffect = () => {
     setClicked((prevState) => !prevState);
@@ -21,7 +21,7 @@ export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
     e.preventDefault();
 
     const reply = {
-      "id": Math.random() * 1000,
+      "id": Math.floor(Math.random() * 1000),
       "content": replyText.replace(`@${to},`, ''),
       "createdAt": formatDistanceToNow(new Date()),
       "score": 0,
@@ -32,10 +32,11 @@ export default function ReplyForm({ user, text, to, id, replyFormSwitch }) {
           "webp": "./images/avatars/image-juliusomo.webp"
         },
         "username": "juliusomo"
-      }
+      },
+      "mainCommentId": mainCommentId
     };
 
-    addReply(reply, id);
+    dispatch(addReply(reply, mainCommentId));
     setReplyText('');
     replyFormSwitch();
   };

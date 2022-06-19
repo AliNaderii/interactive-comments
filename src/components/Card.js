@@ -12,7 +12,7 @@ import {
 import { useDataContext } from "../hooks/useDataContext";
 
 
-export default function Card({ comment, addId, deleteId }) {
+export default function Card({ comment, deleteId, mainCommentId, tag }) {
   // STATES
   const [showModal, setShowModal] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -143,17 +143,22 @@ export default function Card({ comment, addId, deleteId }) {
             </p>
           </CommentText>
         </CommentSection>
-        {showModal && <Modal hideModal={hideModal} id={deleteId} />}
+        {showModal &&
+          <Modal
+            hideModal={hideModal}
+            deleteId={deleteId}
+            mainCommentId={mainCommentId}
+            tag={tag}
+          />}
       </StyledCard>
 
       {/* CONDITIONAL RENDERING OF REPLY FORM */}
-      {
-        showReplyForm &&
+      {showReplyForm &&
         <ReplyForm
           user={state.currentUser}
-          text={`REPLY`}
+          text='REPLY'
           to={comment.user.username}
-          id={addId}
+          mainCommentId={mainCommentId}
           replyFormSwitch={replyFormSwitch}
         />
       }
@@ -163,11 +168,13 @@ export default function Card({ comment, addId, deleteId }) {
         showEditForm &&
         <EditForm
           user={state.currentUser}
-          value={comment.content}
-          text={`Update`}
+          content={comment.content}
+          text='UPDATE'
           to={comment.user.username}
-          id={deleteId}
+          mainCommentId={mainCommentId}
+          editId={deleteId}
           editFormSwitch={editFormSwitch}
+          tag={tag}
         />
       }
     </div>

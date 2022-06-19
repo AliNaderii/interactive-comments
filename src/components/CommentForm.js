@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDataContext } from "../hooks/useDataContext";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { addComment } from "../context/actions";
 // STYLES
 import { StyledCommentForm, Avatar, CommentInput, Button } from "../styles/CommentForm.styled";
 
@@ -9,15 +10,14 @@ export default function CommentForm({ user, text, to }) {
   // STATES
   const [replyText, setReplyText] = useState(to);
   // USING CONTEXT HOOK
-  const { addComment } = useDataContext();
+  const { dispatch } = useDataContext();
 
   // SUBMIT FORM FUNCTION
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // COMMENT TO BE ADDED
     const comment = {
-      "id": (Math.random()) * 1000,
+      "id": Math.floor(Math.random() * 1000),
       "content": replyText,
       "createdAt": formatDistanceToNow(new Date()),
       "score": 0,
@@ -28,10 +28,10 @@ export default function CommentForm({ user, text, to }) {
         },
         "username": "juliusomo"
       },
-      "replies": []
+      "replies": [],
     };
 
-    addComment(comment);
+    dispatch(addComment(comment));
     setReplyText('');
   };
 
